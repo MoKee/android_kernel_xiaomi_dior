@@ -34,6 +34,11 @@ struct files_stat_struct files_stat = {
 	.max_files = NR_FILE
 };
 
+<<<<<<< HEAD
+=======
+DEFINE_LGLOCK(files_lglock);
+
+>>>>>>> 02d262b... brlocks/lglocks: turn into functions
 /* SLAB cache for file structures */
 static struct kmem_cache *filp_cachep __read_mostly;
 
