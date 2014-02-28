@@ -692,10 +692,14 @@ static int qpnp_mpp_set(struct qpnp_led_data *led)
 	int rc;
 	u8 val;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int duty_us, duty_ns, period_us;
 =======
 	int duty_us;
 >>>>>>> 6faed39... leds: leds-qpnp: avoid truncation in qpnp_led_masked_write function
+=======
+	int duty_us, duty_ns, period_us;
+>>>>>>> 92dc7a4... leds: leds-qpnp: PWM period granularity auto selection for leds
 
 	if (led->cdev.brightness) {
 		if (led->cdev.brightness < led->mpp_cfg->min_brightness) {
@@ -714,6 +718,10 @@ static int qpnp_mpp_set(struct qpnp_led_data *led)
 			}
 		}
 		if (led->mpp_cfg->pwm_mode == PWM_MODE) {
+<<<<<<< HEAD
+=======
+			pwm_disable(led->mpp_cfg->pwm_cfg->pwm_dev);
+>>>>>>> 92dc7a4... leds: leds-qpnp: PWM period granularity auto selection for leds
 			/*config pwm for brightness scaling*/
 			period_us = led->mpp_cfg->pwm_cfg->pwm_period_us;
 			if (period_us > INT_MAX / NSEC_PER_USEC) {
