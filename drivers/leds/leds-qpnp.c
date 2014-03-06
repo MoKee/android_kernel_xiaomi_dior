@@ -719,9 +719,12 @@ static int qpnp_mpp_set(struct qpnp_led_data *led)
 		}
 		if (led->mpp_cfg->pwm_mode == PWM_MODE) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			pwm_disable(led->mpp_cfg->pwm_cfg->pwm_dev);
 >>>>>>> 92dc7a4... leds: leds-qpnp: PWM period granularity auto selection for leds
+=======
+>>>>>>> 3167a53... leds: leds-qpnp: avoid calling pwm_disable when scaling leds' brightness
 			/*config pwm for brightness scaling*/
 			period_us = led->mpp_cfg->pwm_cfg->pwm_period_us;
 			if (period_us > INT_MAX / NSEC_PER_USEC) {
