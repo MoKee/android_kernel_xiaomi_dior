@@ -677,6 +677,7 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 			 * Handle the owner died case:
 			 */
 			if (uval & FUTEX_OWNER_DIED) {
+<<<<<<< HEAD
 				/*
 				 * exit_pi_state_list sets owner to NULL and
 				 * wakes the topmost waiter. The task which
@@ -715,6 +716,46 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 				 * then the pi_state must have an
 				 * owner. [7]
 				 */
+=======
+				/*
+				 * exit_pi_state_list sets owner to NULL and
+				 * wakes the topmost waiter. The task which
+				 * acquires the pi_state->rt_mutex will fixup
+				 * owner.
+				 */
+				if (!pi_state->owner) {
+					/*
+					 * No pi state owner, but the user
+					 * space TID is not 0. Inconsistent
+					 * state. [5]
+					 */
+					if (pid)
+						return -EINVAL;
+					/*
+					 * Take a ref on the state and
+					 * return. [4]
+					 */
+					goto out_state;
+				}
+
+				/*
+				 * If TID is 0, then either the dying owner
+				 * has not yet executed exit_pi_state_list()
+				 * or some waiter acquired the rtmutex in the
+				 * pi state, but did not yet fixup the TID in
+				 * user space.
+				 *
+				 * Take a ref on the state and return. [6]
+				 */
+				if (!pid)
+					goto out_state;
+			} else {
+				/*
+				 * If the owner died bit is not set,
+				 * then the pi_state must have an
+				 * owner. [7]
+				 */
+>>>>>>> 32351af... futex: Make lookup_pi_state more robust
 				if (!pi_state->owner)
 					return -EINVAL;
 			}
