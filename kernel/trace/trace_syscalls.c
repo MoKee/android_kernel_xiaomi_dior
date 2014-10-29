@@ -520,10 +520,14 @@ static void perf_syscall_enter(void *ignore, struct pt_regs *regs, long id)
 
 	syscall_nr = syscall_get_nr(current, regs);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (syscall_nr < 0 || syscall_nr >= NR_syscalls)
 =======
 	if (syscall_nr < 0)
 >>>>>>> 56e7611... tracing/syscalls: Fix perf syscall tracing when syscall_nr == -1
+=======
+	if (syscall_nr < 0 || syscall_nr >= NR_syscalls)
+>>>>>>> b839309... tracing/syscalls: Ignore numbers outside NR_syscalls' range
 		return;
 	if (!test_bit(syscall_nr, enabled_perf_enter_syscalls))
 		return;
@@ -600,10 +604,14 @@ static void perf_syscall_exit(void *ignore, struct pt_regs *regs, long ret)
 
 	syscall_nr = syscall_get_nr(current, regs);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (syscall_nr < 0 || syscall_nr >= NR_syscalls)
 =======
 	if (syscall_nr < 0)
 >>>>>>> 56e7611... tracing/syscalls: Fix perf syscall tracing when syscall_nr == -1
+=======
+	if (syscall_nr < 0 || syscall_nr >= NR_syscalls)
+>>>>>>> b839309... tracing/syscalls: Ignore numbers outside NR_syscalls' range
 		return;
 	if (!test_bit(syscall_nr, enabled_perf_exit_syscalls))
 		return;
