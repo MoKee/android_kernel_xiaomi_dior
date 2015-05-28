@@ -3587,13 +3587,33 @@ static int binder_transactions_show(struct seq_file *m, void *unused)
 
 static int binder_proc_show(struct seq_file *m, void *unused)
 {
+<<<<<<< HEAD
+=======
+	struct binder_proc *itr;
+>>>>>>> 698d7b1... android: drivers: workaround debugfs race in binder
 	struct binder_proc *proc = m->private;
+	struct hlist_node *pos;
 	int do_lock = !binder_debug_no_lock;
 
 	if (do_lock)
 		mutex_lock(&binder_lock);
+<<<<<<< HEAD
 	seq_puts(m, "binder proc state:\n");
 	print_binder_proc(m, proc, 1);
+=======
+
+	hlist_for_each_entry(itr, pos, &binder_procs, proc_node) {
+		if (itr == proc) {
+			valid_proc = true;
+			break;
+		}
+	}
+	if (valid_proc) {
+		seq_puts(m, "binder proc state:\n");
+		print_binder_proc(m, proc, 1);
+	}
+
+>>>>>>> 698d7b1... android: drivers: workaround debugfs race in binder
 	if (do_lock)
 		mutex_unlock(&binder_lock);
 	return 0;
