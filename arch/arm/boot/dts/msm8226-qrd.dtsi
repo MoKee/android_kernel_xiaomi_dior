@@ -154,6 +154,7 @@
 		qcom,cdc-us-euro-gpios = <&msmgpio 69 0>;
 	};
 
+<<<<<<< HEAD
 	sound-9302 {
 		qcom,audio-routing =
 			"RX_BIAS", "MCLK",
@@ -166,6 +167,12 @@
 			"MIC BIAS2 External", "Headset Mic",
 			"AMIC3", "MIC BIAS1 External",
 			"MIC BIAS1 External", "Handset Mic";
+=======
+	qcom,bam_dmux@fc834000 {
+		qcom,fast-shutdown;
+	};
+};
+>>>>>>> 4d63b20... arm/dts: msm8226: Enable bam_dmux fast shutdown
 
 		qcom,cdc-mclk-gpios = <&pm8226_gpios 1 0>;
 		qcom,cdc-vdd-spkr-gpios = <&pm8226_gpios 2 0>;
