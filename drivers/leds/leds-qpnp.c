@@ -554,7 +554,12 @@ static int qpnp_wled_sync(struct qpnp_led_data *led)
 
 static int qpnp_wled_set(struct qpnp_led_data *led)
 {
+<<<<<<< HEAD
 	int rc, duty, level;
+=======
+	static int max_current, digital;
+	int rc, duty = 0, level, scale_ratio = WLED_SCALE_VAL;
+>>>>>>> ae230b7... defconfig: armani: Optimize with O2
 	u8 val, i, num_wled_strings, sink_val;
 
 	num_wled_strings = led->wled_cfg->num_strings;

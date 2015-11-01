@@ -55,6 +55,7 @@ static int __init w1_gpio_probe(struct platform_device *pdev)
 {
 	struct w1_bus_master *master;
 	struct w1_gpio_platform_data *pdata = pdev->dev.platform_data;
+<<<<<<< HEAD
 	struct device_node *node;
 	char *key;
 	unsigned int is_open_drain;
@@ -65,6 +66,17 @@ static int __init w1_gpio_probe(struct platform_device *pdev)
 	{
 		pr_err("%s: tring to allocate mem for pdata'\n", __func__);
 		pdata = kzalloc(sizeof(struct w1_gpio_platform_data), GFP_KERNEL);
+=======
+	int err = 0;
+        struct device_node *node;
+        char *key;
+        int ret;
+        unsigned int is_open_drain;
+
+    if (!pdata)
+        {
+                pdata = kzalloc(sizeof(struct w1_gpio_platform_data), GFP_KERNEL);
+>>>>>>> ae230b7... defconfig: armani: Optimize with O2
                 if (!pdata)
 			return -ENOMEM;
 		pdev->dev.platform_data =(void *) pdata;
