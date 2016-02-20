@@ -1,7 +1,3 @@
-/*
-* Copyright (C) 2015 XiaoMi, Inc. All rights reserved.
-*/
-
 #ifndef __IST30XX_TRACKING_H__
 #define __IST30XX_TRACKING_H__
 
