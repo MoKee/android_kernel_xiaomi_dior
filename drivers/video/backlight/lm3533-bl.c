@@ -100,13 +100,6 @@ static int lm3533_backlight_set_with_edp(struct backlight_device *bd,
 	return 0;
 }
 
-/*static void lm3533_backlight_throttle(unsigned int new_state, void *priv_data)
-{
-	struct backlight_device *bl_device = (struct backlight_device *) priv_data;
-	struct lm3533_bl *bl = bl_get_data(bl_device);
-	pr_info("jnv %s was called, set brightness with 0 \n", __func__);
-	lm3533_ctrlbank_set_brightness(&bl->cb, 0);
-}*/
 
 static int lm3533_bl_update_status(struct backlight_device *bd)
 {
@@ -468,23 +461,16 @@ static int __devexit lm3533_bl_remove(struct platform_device *pdev)
 #ifdef CONFIG_PM
 static int lm3533_bl_suspend(struct platform_device *pdev, pm_message_t state)
 {
-	//struct lm3533_bl *bl = platform_get_drvdata(pdev);
-
 	dev_dbg(&pdev->dev, "%s\n", __func__);
 
-	//lm3533_backlight_set_with_edp(bl->bd, 0);
-
-	//return lm3533_ctrlbank_disable(&bl->cb);
 	return 0;
 }
 
 static int lm3533_bl_resume(struct platform_device *pdev)
 {
-	//struct lm3533_bl *bl = platform_get_drvdata(pdev);
 
 	dev_dbg(&pdev->dev, "%s\n", __func__);
 
-	//return lm3533_ctrlbank_enable(&bl->cb);
 	return 0;
 }
 #else

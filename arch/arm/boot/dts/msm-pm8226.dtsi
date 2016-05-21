@@ -1,4 +1,5 @@
 /* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -79,27 +80,17 @@
 			qcom,vddmax-mv = <4350>;
 			qcom,vddsafe-mv = <4400>;
 			qcom,vinmin-mv = <4300>;
-			qcom,vbatdet-delta-mv = <50>;
-			qcom,ibatmax-ma = <1450>;
-			qcom,ibatterm-ma = <150>;
 			qcom,ibatsafe-ma = <1500>;
 			qcom,thermal-mitigation = <1500 700 600 325>;
-			qcom,resume-soc = <99>;
-			qcom,tchg-mins = <210>;
 			qcom,chg-vadc = <&pm8226_vadc>;
 			qcom,chg-adc_tm = <&pm8226_adc_tm>;
 			qcom,pmic-revid = <&pm8226_revid>;
-			qcom,ibatmax-warm-ma = <950>;
 			qcom,warm-bat-decidegc = <450>;
 			qcom,warm-bat-mv = <4100>;
-			qcom,ibatmax-cool-ma = <600>;
 			qcom,cool-bat-decidegc = <20>;
 			qcom,cool-bat-mv = <4100>;
 			qcom,batt-hot-percentage = <25>;
 	        	qcom,batt-cold-percentage = <80>;
-			qcom,maxinput-usb-ma = <1800>;
-			qcom,use-external-rsense;
-			qcom,ext-ovp-present;
 
 
 			qcom,chgr@1000 {
@@ -200,7 +191,6 @@
 
 			qcom,use-external-rsense;
 			qcom,r-sense-uohm = <10000>;
-			qcom,v-cutoff-uv = <3400000>;
 			qcom,max-voltage-uv = <4350000>;
 			qcom,r-conn-mohm = <0>;
 			qcom,shutdown-soc-valid-limit = <15>;
@@ -211,7 +201,6 @@
 			qcom,low-voltage-calculate-soc-ms = <1000>;
 			qcom,low-soc-calculate-soc-ms = <5000>;
 			qcom,calculate-soc-ms = <20000>;
-			qcom,chg-term-ua = <150000>;
 			qcom,batt-type = <0>;
 			qcom,tm-temp-margin = <5000>;
 			qcom,low-ocv-correction-limit-uv = <100>;
@@ -221,10 +210,6 @@
 			qcom,bms-vadc = <&pm8226_vadc>;
 			qcom,bms-iadc = <&pm8226_iadc>;
 			qcom,bms-adc_tm = <&pm8226_adc_tm>;
-
-			qcom,batt-pres-status@1208 {
-				reg = <0x1208 0x1>;
-			};
 
 			qcom,bms-iadc@3800 {
 				reg = <0x3800 0x100>;
@@ -367,6 +352,11 @@
 			mpp@a700 {
 				reg = <0xa700 0x100>;
 				qcom,pin-num = <8>;
+				qcom,mode = <2>;
+				qcom,vin-sel = <1>;
+				qcom,pull = <1>;
+				qcom,invert = <0>;
+				qcom,master-en = <1>;
 			};
 		};
 
@@ -877,6 +867,22 @@
 						"flash0_trigger";
 				qcom,id = <1>;
 				linux,name = "led:flash_0";
+				qcom,current = <625>;
+			};
+
+			pm8226_flash1: qcom,flash_1 {
+				qcom,max-current = <1000>;
+				qcom,default-state = "off";
+				qcom,headroom = <3>;
+				qcom,duration = <1280>;
+				qcom,clamp-curr = <200>;
+				qcom,startup-dly = <3>;
+				qcom,safety-timer;
+				linux,default-trigger =
+						"flash1_trigger";
+				label = "flash";
+				qcom,id = <2>;
+				linux,name = "led:flash_1";
 				qcom,current = <625>;
 			};
 

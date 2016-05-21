@@ -1,4 +1,5 @@
 /* Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -3435,6 +3436,8 @@ static struct clk_lookup msm_clocks_8226[] = {
 	CLK_LOOKUP("cam_clk", camss_mclk0_clk.c, "62.qcom,eeprom"),
 	CLK_LOOKUP("cam_src_clk", mclk0_clk_src.c, "25.qcom,eeprom"),
 	CLK_LOOKUP("cam_clk", camss_mclk0_clk.c, "25.qcom,eeprom"),
+	CLK_LOOKUP("cam_src_clk", mclk0_clk_src.c, "61.qcom,eeprom"),
+	CLK_LOOKUP("cam_clk", camss_mclk0_clk.c, "61.qcom,eeprom"),
 
 	/* CCI clocks */
 	CLK_LOOKUP("camss_top_ahb_clk", camss_top_ahb_clk.c,

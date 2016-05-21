@@ -6,8 +6,8 @@
 ** Description:
 **     Constants and type definitions for the TouchSense Kernel Module.
 **
-** Portions Copyright (C) 2015 XiaoMi, Inc. All Rights Reserved.
-** Portions Copyright (c) 2008-2012 Immersion Corporation. All Rights Reserved.
+** Portions Copyright (c) 2008-2014 Immersion Corporation. All Rights Reserved.
+** Copyright (C) 2015 XiaoMi, Inc.
 **
 ** This file contains Original Code and/or Modifications of Original Code
 ** as defined in and that are subject to the GNU Public License v2 -
@@ -47,7 +47,7 @@
 #define TSPDRV_GET_RUNTIME_RECORD_FLAG      _IO(TSPDRV_IOCTL_GROUP, 10)
 #define TSPDRV_SET_RUNTIME_RECORD_BUF_SIZE  _IO(TSPDRV_IOCTL_GROUP, 11)
 #define TSPDRV_GET_RUNTIME_RECORD_BUF_SIZE  _IO(TSPDRV_IOCTL_GROUP, 12)
-
+#define TSPDRV_GET_PARAM_FILE_ID            _IO(TSPDRV_IOCTL_GROUP, 13)
 /*
 ** Frequency constant parameters to control force output values and signals.
 */
@@ -87,8 +87,7 @@ typedef VibeInt32	VibeStatus;
 #define DBL_INFO                        3
 #define DBL_VERBOSE                     4
 #define DBL_OVERKILL                    5
-//#warning "************ __KERNEL__ ************"
-
+#pragma message "************ __KERNEL__ ************"
 #endif
 
 /* Device parameters sent to the kernel module, tspdrv.ko */
@@ -115,10 +114,24 @@ typedef struct
 /* Kernel Debug Macros */
 #ifdef __KERNEL__
     asmlinkage void _DbgOut(int level, const char *format,...);
+    asmlinkage void _DbgOutTemp(const char *format,...);
+    asmlinkage void _DbgOutFatal(const char *format,...);
+    asmlinkage void _DbgOutErr(const char *format,...);
+    asmlinkage void _DbgOutWarn(const char *format,...);
+    asmlinkage void _DbgOutInfo(const char *format,...);
+    asmlinkage void _DbgOutVerbose(const char *format,...);
+    asmlinkage void _DbgOutOverkill(const char *format,...);
+
     #define DbgOut(_x_)  _DbgOut _x_
+    #define DbgOutTemp(_x_) _DbgOutTemp _x_
+    #define DbgOutFatal(_x_) _DbgOutFatal _x_
+    #define DbgOutErr(_x_) _DbgOutErr _x_
+    #define DbgOutWarn(_x_) _DbgOutWarn _x_
+    #define DbgOutInfo(_x_) _DbgOutInfo _x_
+    #define DbgOutVerbose(_x_) _DbgOutVerbose _x_
+    #define DbgOutOverkill(_x_) _DbgOutOverkill _x_
 
-
-#if (defined(VIBE_RECORD) && defined(VIBE_DEBUG)) || defined(VIBE_RUNTIME_RECORD)
+    #if (defined(VIBE_RECORD) && defined(VIBE_DEBUG)) || defined(VIBE_RUNTIME_RECORD)
         #define DbgRecorderInit(_x_) _RecorderInit _x_
         #define DbgRecorderTerminate(_x_) _RecorderTerminate _x_
         #define DbgRecorderReset(_x_) _RecorderReset _x_

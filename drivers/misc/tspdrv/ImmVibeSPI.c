@@ -2,7 +2,7 @@
 ** =========================================================================
 ** Copyright (c) 2007-2013  Immersion Corporation.  All rights reserved.
 **                          Immersion Corporation Confidential and Proprietary
-** Copyright (C) 2015 XiaoMi, Inc.  All rights reserved.
+** Copyright (C) 2015 XiaoMi, Inc.
 **
 ** File:
 **     ImmVibeSPI.c
@@ -43,13 +43,16 @@
 #include <linux/hrtimer.h>
 #include "../../staging/android/timed_output.h"
 #include <linux/regulator/consumer.h>
+#include <asm/bootinfo.h>
 
 /*
 ** GPIO to ISA1000_EN pin
 */
 #define GPIO_ISA1000_EN 33
-#define GPIO_HAPTIC_EN 51
+#define DIOR_GPIO_HAPTIC_EN 51
+#define ARMANI_GPIO_HAPTIC_EN 50
 #define ISA1000_VIB_DEFAULT_TIMEOUT	15000
+static unsigned int gpio_haptic_en;
 
 static int pwm_duty = 0;
 
@@ -168,7 +171,7 @@ static void isa1000_vib_set_level(int level)
         int rc = 0;
 
         if  (level != 0) {
-
+ 
                 /* Set PWM duty cycle corresponding to the input 'level' */
                 /* Xiaomi TODO: This is only an example.
                 **              Please modify for PWM on Hong Mi 2A platform
@@ -245,6 +248,11 @@ static int isa1000_setup(void)
         int ret;
 	struct regulator *vdd_regulator;
 
+	if ((get_hw_version_major() == 4) || (get_hw_version_major() == 5))
+		gpio_haptic_en = ARMANI_GPIO_HAPTIC_EN; /* HM1AW or HM1AC */
+	else
+		gpio_haptic_en = DIOR_GPIO_HAPTIC_EN; /* DIOR */
+
         ret = gpio_is_valid(GPIO_ISA1000_EN);
         if (ret) {
                 ret = gpio_request(GPIO_ISA1000_EN, "gpio_isa1000_en");
@@ -258,12 +266,12 @@ static int isa1000_setup(void)
                 return ret;
         }
 
-	ret = gpio_is_valid(GPIO_HAPTIC_EN);
+	ret = gpio_is_valid(gpio_haptic_en);
         if (ret) {
-                ret = gpio_request(GPIO_HAPTIC_EN, "gpio_haptic_en");
+                ret = gpio_request(gpio_haptic_en, "gpio_haptic_en");
                 if (ret) {
                         pr_err("%s: gpio %d request failed\n",
-                                        __func__, GPIO_HAPTIC_EN);
+                                        __func__, gpio_haptic_en);
                         return ret;
                 }
         } else {
@@ -272,7 +280,7 @@ static int isa1000_setup(void)
         }
 
 	gpio_direction_output(GPIO_ISA1000_EN,0);
-	gpio_direction_output(GPIO_HAPTIC_EN,1);
+	gpio_direction_output(gpio_haptic_en,1);
 
         /* Request and reserve the PWM module for output TO ISA1000 */
         pwm = pwm_request(PWM_CH_ID, "isa1000");

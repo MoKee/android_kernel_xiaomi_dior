@@ -3,7 +3,6 @@
  *
  * Copyright (C) 2011-2012 Texas Instruments
  * Author: Johan Hovold <jhovold@gmail.com>
- *
  * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -132,16 +131,6 @@ EXPORT_SYMBOL_GPL(lm3533_ctrlbank_get_##_name);
 lm3533_ctrlbank_set(brightness, BRIGHTNESS);
 lm3533_ctrlbank_get(brightness, BRIGHTNESS);
 
-/*
- * PWM-input control mask:
- *
- *   bit 5 - PWM-input enabled in Zone 4
- *   bit 4 - PWM-input enabled in Zone 3
- *   bit 3 - PWM-input enabled in Zone 2
- *   bit 2 - PWM-input enabled in Zone 1
- *   bit 1 - PWM-input enabled in Zone 0
- *   bit 0 - PWM-input enabled
- */
 lm3533_ctrlbank_set(pwm, PWM);
 lm3533_ctrlbank_get(pwm, PWM);
 

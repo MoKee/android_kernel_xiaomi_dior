@@ -1,4 +1,5 @@
 /* Copyright (c) 2009-2014, Linux Foundation. All rights reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -4057,12 +4058,6 @@ msm_otg_ext_chg_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		} else {
 			motg->ext_chg_active = false;
 			complete(&motg->ext_chg_wait);
-			/*
-			 * If usb cable is disconnected and then userspace
-			 * calls ioctl to unblock low power mode, make sure
-			 * otg_sm work for usb disconnect is processed first
-			 * followed by decrementing the PM usage counters.
-			 */
 			flush_work(&motg->sm_work);
 			pm_runtime_put_noidle(motg->phy.dev);
 			motg->pm_done = 1;

@@ -3,6 +3,7 @@
  *
  * Copyright 2009 Benjamin Herrenschmidt, IBM Corp
  * benh@kernel.crashing.org
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -389,8 +390,6 @@ static void __unflatten_device_tree(struct boot_param_header *blob,
 	/* Allocate memory for the expanded device tree */
 	mem = (unsigned long)
 		dt_alloc(size + 4, __alignof__(struct device_node));
-
-	memset((void *)mem, 0, size);
 
 	((__be32 *)mem)[size / 4] = cpu_to_be32(0xdeadbeef);
 

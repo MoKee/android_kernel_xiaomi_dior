@@ -28,3 +28,26 @@
 &dsi_nt35521_720_vid{
 	qcom,cont-splash-enabled;
 };
+
+&pm8226_chg {
+	compatible = "qcom,qpnp-charger-dior";
+	qcom,vbatdet-delta-mv = <50>;
+	qcom,ibatmax-ma = <1450>;
+	qcom,ibatterm-ma = <150>;
+	qcom,resume-soc = <99>;
+	qcom,tchg-mins = <210>;
+	qcom,ibatmax-warm-ma = <950>;
+	qcom,ibatmax-cool-ma = <600>;
+	qcom,maxinput-usb-ma = <1800>;
+	qcom,use-external-rsense;
+	qcom,ext-ovp-present;
+};
+
+&pm8226_bms {
+	compatible = "qcom,qpnp-bms-dior";
+	qcom,v-cutoff-uv = <3400000>;
+	qcom,chg-term-ua = <150000>;
+	qcom,batt-pres-status@1208 {
+		reg = <0x1208 0x1>;
+	};
+};

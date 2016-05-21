@@ -2,10 +2,11 @@
  * bootinfo.h
  * Copyright (C) 2015 XiaoMi, Inc.
  *
+ * This file is designed for Borqs linux phone platform collecting boot info
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
- *
  */
 
 #ifndef __ASMARM_BOOTINFO_H
@@ -42,6 +43,8 @@ enum board_id_modem
 	BOARD_ID_LTEW = 1,
 	BOARD_ID_LTETD = 2,
 	BOARD_ID_LTEGLOBAL = 3,
+	BOARD_ID_HM1AW = 4,
+	BOARD_ID_HM1AC = 5,
 };
 
 #define RESTART_EVENT_WDOG		0x10000

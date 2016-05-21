@@ -1,5 +1,5 @@
 /* Copyright (c) 2011-2013, The Linux Foundation. All rights reserved.
- * Copyright (C) 2015 XiaoMi, Inc. All rights reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -23,8 +23,6 @@
 #include <linux/workqueue.h>
 #include <linux/jiffies.h>
 #include <linux/gpio.h>
-#include <linux/if.h>
-#include <linux/random.h>
 #include <linux/wakelock.h>
 #include <linux/delay.h>
 #include <linux/of.h>
@@ -246,10 +244,6 @@ static struct wcnss_pmic_dump wcnss_pmic_reg_dump[] = {
 	{"LVS1", 0x060},
 };
 
-<<<<<<< HEAD
-#define NVBIN_FILE_H3TD "wlan/prima/WCNSS_qcom_wlan_nv_h3td.bin"
-#define NVBIN_FILE_H3W  "wlan/prima/WCNSS_qcom_wlan_nv_h3w.bin"
-=======
 static int wcnss_notif_cb(struct notifier_block *this, unsigned long code,
 				void *ss_handle);
 
@@ -261,7 +255,6 @@ static struct notifier_block wnb = {
 #define NVBIN_FILE_H3W   "wlan/prima/WCNSS_qcom_wlan_nv_h3w.bin"
 #define NVBIN_FILE_H3GBL "wlan/prima/WCNSS_qcom_wlan_nv_h3gbl.bin"
 #define NVBIN_FILE_H2A   "wlan/prima/WCNSS_qcom_wlan_nv.bin"
->>>>>>> 8220ee1... wcnss: Unregister subsys notifier
 
 /*
  * On SMD channel 4K of maximum data can be transferred, including message
@@ -1810,6 +1803,22 @@ static void wcnss_send_version_req(struct work_struct *worker)
 
 static DECLARE_RWSEM(wcnss_pm_sem);
 
+void wcnss_get_nv_file(char *nv_file, int size)
+{
+	int hw_ver;
+
+	hw_ver = get_board_id();
+	if (hw_ver == BOARD_ID_LTETD)
+		strlcpy(nv_file, NVBIN_FILE_H3TD, size);
+	else if (hw_ver == BOARD_ID_LTEW)
+		strlcpy(nv_file, NVBIN_FILE_H3W, size);
+	else if (hw_ver == BOARD_ID_LTEGLOBAL)
+		strlcpy(nv_file, NVBIN_FILE_H3GBL, size);
+        else if (hw_ver == BOARD_ID_HM1AW || hw_ver == BOARD_ID_HM1AC)
+                strlcpy(nv_file, NVBIN_FILE_H2A, size);
+}
+EXPORT_SYMBOL(wcnss_get_nv_file);
+
 static void wcnss_nvbin_dnld(void)
 {
 	int ret = 0;
@@ -1827,10 +1836,7 @@ static void wcnss_nvbin_dnld(void)
 
 	down_read(&wcnss_pm_sem);
 
-	if (get_board_id() == BOARD_ID_LTETD)
-		strcpy(xiaomi_wlan_nv_file, NVBIN_FILE_H3TD);
-	else
-		strcpy(xiaomi_wlan_nv_file, NVBIN_FILE_H3W);
+	wcnss_get_nv_file(xiaomi_wlan_nv_file, sizeof(xiaomi_wlan_nv_file));
 	pr_info("wcnss: Get nv file from %s\n", xiaomi_wlan_nv_file);
 
 	ret = request_firmware(&nv, xiaomi_wlan_nv_file, dev);

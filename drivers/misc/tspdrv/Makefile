@@ -6,7 +6,6 @@
 #    Makefile for TouchSense Linux Kernel Module
 #    Targets Kernel 2.6
 #
-# Portions Copyright (C) 2015 XiaoMi, Inc. All Rights Reserved.
 # Portions Copyright (c) 2008-2012 Immersion Corporation. All Rights Reserved.
 #
 # This file contains Original Code and/or Modifications of Original Code

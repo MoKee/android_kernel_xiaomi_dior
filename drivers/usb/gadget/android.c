@@ -1,11 +1,10 @@
 /*
  * Gadget Driver for Android
  *
- * Copyright (C) 2015 XiaoMi, Inc.
- *
  * Copyright (C) 2008 Google, Inc.
  * Author: Mike Lockwood <lockwood@android.com>
  *         Benoit Goby <benoit@android.com>
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -545,6 +544,7 @@ static void adb_closed_callback(void)
 	if (dev)
 		mutex_unlock(&dev->mutex);
 }
+
 
 /*-------------------------------------------------------------------------*/
 /* Supported functions initialization */
@@ -1813,8 +1813,6 @@ static int mass_storage_function_init(struct android_usb_function *f,
 		config->fsg.nluns++;
 	}
 
-	//cdrom default value set 1, it may be changed in inquiry process using android_is_set_cdrom
-	//whether cdrom or mass_storage depends on host OS
 	config->fsg.luns[0].cdrom = 1;
 	config->fsg.luns[0].ro = 1;
 	config->fsg.luns[0].removable = 1;
@@ -2326,7 +2324,6 @@ functions_show(struct device *pdev, struct device_attribute *attr, char *buf)
 					enabled_list)
 			buff += snprintf(buff, PAGE_SIZE, "%s,",
 					f_holder->f->name);
-
 	}
 
 	mutex_unlock(&dev->mutex);
@@ -2731,7 +2728,6 @@ static int android_is_set_cdrom(void)
 		if ( dev && dev->cdev && dev->cdev->gadget &&  dev->cdev->gadget->usb_sys_state == GADGET_STATE_DONE_SET)
 			return 0;
 	}
-	//default value
 	return 1;
 }
 

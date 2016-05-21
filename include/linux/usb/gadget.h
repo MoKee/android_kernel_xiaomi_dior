@@ -6,9 +6,9 @@
  * master many USB gadgets, but the gadgets are only slaved to one host.
  *
  *
- * Copyright (C) 2015 XiaoMi, Inc. All Rights Reserved.
  * (C) Copyright 2002-2004 by David Brownell
  * All Rights Reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This software is licensed under the GNU GPL version 2.
  */

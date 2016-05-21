@@ -2,7 +2,6 @@
  *	w1_io.c
  *
  * Copyright (c) 2004 Evgeniy Polyakov <zbr@ioremap.net>
- * Copyright (C) 2015 XiaoMi, Inc.
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -82,6 +81,7 @@ static void w1_write_bit(struct w1_master *dev, int bit)
 {
 	if (bit) {
 		dev->bus_master->write_bit(dev->bus_master->data, 0);
+		/*w1_delay(6);*/
 		dev->bus_master->write_bit(dev->bus_master->data, 1);
 		w1_delay(70);
 	} else {
@@ -163,7 +163,9 @@ static u8 w1_read_bit(struct w1_master *dev)
 	/* sample timing is critical here */
 	local_irq_save(flags);
 	dev->bus_master->write_bit(dev->bus_master->data, 0);
+	/*w1_delay(6);*/
 	dev->bus_master->write_bit(dev->bus_master->data, 1);
+	/*w1_delay(9);*/
 
 	result = dev->bus_master->read_bit(dev->bus_master->data);
 	local_irq_restore(flags);

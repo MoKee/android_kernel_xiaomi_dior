@@ -596,6 +596,7 @@ static int lm3533_parse_dt(struct device *dev,
 				pdata->leds[j].pwm = 0x38;
 			}
 
+
 			j++;
 		}
 	}
@@ -733,21 +734,6 @@ static struct regmap_config regmap_config = {
 	.volatile_reg	= lm3533_volatile_register,
 	.precious_reg	= lm3533_precious_register,
 };
-/*********************************************************
-output config: 0x10=0(2 led string controlled by control bank A)
-pwm config:0x14 =0 (pwm input disable)
-bank a/b brightness config: 0x1a = 0x02;(brightness linear)
-bank A full scale current: 0x1f = 0x12;(19.4mA)
-control bank enable:0x27=0x1(bank A enable)
-OVP/boost frequency/pwm polarity select: 0x2c=0x0E;(40V,500khz,high polarity)
-bank x brightness control:0x40~0x45
-
-0x11 =0, means all led strings controlled by bank C
-0x16 =0, diable bank C pwm
-0x21=0x0,bank C full scale current 5mA
-0x26=0x4,LVLED charge pump control, set 1x gain for the 33pf capacitor
-0x27=0x5,control bank enable:bank A&C enable
-*/
 int lm3533_init(struct lm3533 *lm3533)
 {
 	struct lm3533_platform_data *pdata = lm3533->dev->platform_data;
@@ -825,6 +811,7 @@ static int __devexit lm3533_i2c_remove(struct i2c_client *i2c)
 	return 0;
 }
 
+
 static const struct i2c_device_id lm3533_i2c_ids[] = {
 	{ "lm3533", 0 },
 	{ },
@@ -839,7 +826,6 @@ static struct i2c_driver lm3533_i2c_driver = {
 	.id_table	= lm3533_i2c_ids,
 	.probe		= lm3533_i2c_probe,
 	.remove		= __devexit_p(lm3533_i2c_remove),
-	//.reset		= lm3533_i2c_reset,
 };
 
 static int __init lm3533_i2c_init(void)

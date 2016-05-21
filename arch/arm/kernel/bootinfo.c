@@ -1,7 +1,7 @@
 /*
  * bootinfo.c
  *
- * Copyright (C) 2015 Xiaomi Ltd.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -47,6 +47,10 @@ int __init board_id_modem_init(char *s)
 		board_id_modem = BOARD_ID_LTETD;
 	else if (!strcmp(s, "LTEGLOBAL"))
 		board_id_modem = BOARD_ID_LTEGLOBAL;
+	else if (!strcmp(s, "HM1AW"))
+		board_id_modem = BOARD_ID_HM1AW;
+	else if (!strcmp(s, "HM1AC"))
+		board_id_modem = BOARD_ID_HM1AC;
 	return 1;
 }
 __setup("androidboot.modem=", board_id_modem_init);

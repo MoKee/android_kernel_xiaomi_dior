@@ -1,10 +1,10 @@
 /*
  *
- * Copyright (c) 2010  Focal tech Ltd.
- * Copyright (c) 2012, Code Aurora Forum. All rights reserved.
  * FocalTech ft5x06 TouchScreen driver header file.
  *
- * Copyright (C) 2015 XiaoMi, Inc. All rights reserved.
+ * Copyright (c) 2010  Focal tech Ltd.
+ * Copyright (c) 2012, Code Aurora Forum. All rights reserved.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -68,11 +68,11 @@ struct ft5x06_ts_platform_data {
 	bool i2c_pull_up;
 
 	unsigned long                landing_jiffies;
-	int                                landing_threshold;
-	int                                staying_threshold;
-	int                                moving_threshold;
-	u16                              raw_min;
-	u16                              raw_max;
+	int                          landing_threshold;
+	int                          staying_threshold;
+	int                          moving_threshold;
+	u16                          raw_min;
+	u16                          raw_max;
 	/* optional callback for platform needs */
 	int (*power_init)(bool);
 	int (*power_on) (bool);

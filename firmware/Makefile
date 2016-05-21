@@ -12,7 +12,7 @@ fw-external-y := $(subst ",,$(CONFIG_EXTRA_FIRMWARE))
 # There are three cases to care about:
 # 1. Building kernel with CONFIG_FIRMWARE_IN_KERNEL=y -- $(fw-shipped-y) should
 #    include the firmware files to include, according to .config
-# 2. 'make modules_install', which will install firmware for modules, and
+# 2. 'make modules_install', which will install firmware for modules, and 
 #    _also_ for the in-kernel drivers when CONFIG_FIRMWARE_IN_KERNEL=n
 # 3. 'make firmware_install', which installs all firmware, unconditionally.
 
@@ -26,7 +26,11 @@ fw-shipped- += acenic/tg1.bin
 else
 acenic-objs := acenic/tg1.bin acenic/tg2.bin
 endif
-fw-shipped-$(CONFIG_TOUCHSCREEN_FT5X06) += ft5336_firmware.fw
+fw-shipped-$(CONFIG_TOUCHSCREEN_FT5X06) += ft5316_firmware.fw \
+					   ft5336_firmware_ofilm.fw \
+					   ft5336_firmware_wintek.fw \
+					   ft5336_firmware_biel.fw \
+					   ft5336_firmware.fw
 fw-shipped-$(CONFIG_TOUCHSCREEN_IST30XX) += ist30xx_wintek.fw \
 					    ist30xx_wintek.cms
 fw-shipped-$(CONFIG_3C359) += 3com/3C359.bin

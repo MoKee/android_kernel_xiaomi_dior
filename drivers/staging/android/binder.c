@@ -3,6 +3,7 @@
  * Android IPC Subsystem
  *
  * Copyright (C) 2007-2008 Google, Inc.
+ * Copyright (C) 2015 XiaoMi, Inc.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -657,7 +658,7 @@ static int binder_update_page_range(struct binder_proc *proc, int allocate,
 		page = &proc->pages[(page_addr - proc->buffer) / PAGE_SIZE];
 
 		BUG_ON(*page);
-		*page = alloc_page(GFP_KERNEL | __GFP_HIGHMEM | __GFP_ZERO);
+		*page = alloc_page(GFP_KERNEL | __GFP_ZERO);
 		if (*page == NULL) {
 			binder_debug(BINDER_DEBUG_TOP_ERRORS,
 				     "binder: %d: binder_alloc_buf failed "
@@ -3587,20 +3588,14 @@ static int binder_transactions_show(struct seq_file *m, void *unused)
 
 static int binder_proc_show(struct seq_file *m, void *unused)
 {
-<<<<<<< HEAD
-=======
 	struct binder_proc *itr;
->>>>>>> 698d7b1... android: drivers: workaround debugfs race in binder
 	struct binder_proc *proc = m->private;
 	struct hlist_node *pos;
 	int do_lock = !binder_debug_no_lock;
+	bool valid_proc = false;
 
 	if (do_lock)
 		mutex_lock(&binder_lock);
-<<<<<<< HEAD
-	seq_puts(m, "binder proc state:\n");
-	print_binder_proc(m, proc, 1);
-=======
 
 	hlist_for_each_entry(itr, pos, &binder_procs, proc_node) {
 		if (itr == proc) {
@@ -3613,7 +3608,6 @@ static int binder_proc_show(struct seq_file *m, void *unused)
 		print_binder_proc(m, proc, 1);
 	}
 
->>>>>>> 698d7b1... android: drivers: workaround debugfs race in binder
 	if (do_lock)
 		mutex_unlock(&binder_lock);
 	return 0;
